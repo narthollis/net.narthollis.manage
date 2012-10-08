@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+* { border: 0; margin: 0; padding: 0; }
+
+html { position: absolute; background: #fff; left: 0; right: 0; top: 0; bottom: 0; height: 100%; width: 100%; }
+body { font-size: 75%; color: #222; font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; padding-bottom: 10px; }
+
+h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+h2 { font-size: 2em; margin-bottom: 0.75em; }
+h3 { font-size: 1.5em; line-height: 1; margin-bottom: 1em; }
+h4 { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; }
+h5 { font-size: 1em; font-weight: bold; margin-bottom: 1.5em; }
+h6 { font-size: 1em; font-weight: bold; }
+
+p { color: #444; }
+
