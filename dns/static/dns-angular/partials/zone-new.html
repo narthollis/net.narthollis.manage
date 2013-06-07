@@ -1,0 +1,15 @@
+<h1>New Zone</h1>
+<form ng-submit="addZone()" class="addzone">
+    <ul>
+        <li><label for="addzone_zone">Name</label><input id="addzone_zone" ng-model="zone.zone" type="text" required /></li>
+        <li><label for="addzone_ttl">TTL</label><input id="addzone_ttl" ng-model="zone.ttl" type="number" required /></li>
+        <li><label for="addzone_contact">Contact</label><input id="addzone_contact" ng-model="zone.contact" type="text" required /></li>
+        <li><label for="addzone_ns">Primary NS</label><input id="addzone_ns" ng-model="zone.primary_ns" type="text" required /></li>
+        <li><label for="addzone_serial">Serial</label><input id="addzone_serial" ng-model="zone.serial" type="number" required /></li>
+        <li><label for="addzone_refresh">Refresh</label><input id="addzone_refresh" ng-model="zone.refresh" type="number" required /></li>
+        <li><label for="addzone_retry">Retry</label><input id="addzone_retry" ng-model="zone.retry" type="number" required /></li>
+        <li><label for="addzone_expire">Expiry</label><input id="addzone_expire" ng-model="zone.expire" type="number" required /></li>
+        <li><label for="addzone_minimum">Minimum</label><input id="addzone_minimum" ng-model="zone.minimum" type="number" required /></li>
+    </ul>
+    <input type="submit" value="Add Zone" />
+</form>

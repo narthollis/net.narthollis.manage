@@ -1,0 +1,36 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block pagetitle %}Net Narthollis Manage{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/static/dns/css/dns.css" />
+
+        <script type="text/javascript" src="/static/dns/js/inittasks.js"></script>
+        {% block javascript %}{% endblock %}
+    <body>
+        <header>
+            <h1>Net Narthollis Manage</h1>
+            <nav>
+                {% block header %}
+                {% if user.is_authenticated %}
+                <a href="{% url auth_logout %}">{% trans "Log out" %}</a>
+                <a href="{% url auth_password_change %}">{% trans "Change password" %}</a>
+                <a>{% trans "Logged in" %}: {% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</a>
+                {% else %}
+                <a href="{% url auth_login %}">{% trans "Log in" %}</a>
+                {% endif %}
+                <a href="{% url dns:index %}">DNS</a>
+                <a href="{% url index %}">{% trans "Home" %}</a>
+                {% endblock %}
+            </nav>
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </header>
+        {% block content %}{% endblock %}
+    </body>
+    <script type="text/javascript">InitTasks.run();</script>
+</html>
+
