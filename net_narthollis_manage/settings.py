@@ -126,12 +126,17 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # I wrote these
+    'dns',
+
+    # From the Internet
+    'guardian',
+#    'registration',
+
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'guardian',
-    'dns'
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin'
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -140,15 +145,17 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ANONYMOUS_USER_ID=0
+ACCOUNT_ACTIVATION_DAYS=7
 
 PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.SHA1PasswordHasher',
     'django.contrib.auth.hashers.MD5PasswordHasher',
     'django.contrib.auth.hashers.CryptPasswordHasher',
 )
+
+APPEND_SLASH=False 
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

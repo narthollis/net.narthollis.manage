@@ -4,12 +4,15 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+from net_narthollis_manage.views import ProfileUpdateView, IndexView
+
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'net_narthollis_manage.views.home', name='home'),
-    # url(r'^net_narthollis_manage/', include('net_narthollis_manage.foo.urls')),
+    url(r'^$', IndexView.as_view(), name="index"),
 
     url(r'^dns/', include('dns.urls')),
+
+#    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/profile/?', ProfileUpdateView.as_view()),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

@@ -8,12 +8,6 @@ if (typeof(net.narthollis.manage.DNS) == "undefined") net.narthollis.manage.DNS 
 net.narthollis.manage.DNS.__Main = function() {
     this.zones = {};
     
-    this.header = document.createElement('header');
-    document.body.appendChild(this.header);
-
-    this.header.appendChild(document.createElement('h1'));
-    this.header.childNodes[0].innerHTML = 'Net Narthollis Manage DNS';
-
     this.leftBar = document.createElement('menu');
     document.body.appendChild(this.leftBar);
     this.leftBar.appendChild(document.createElement('h2'));
@@ -21,6 +15,9 @@ net.narthollis.manage.DNS.__Main = function() {
 
     this.menu = document.createElement('ul');
     this.leftBar.appendChild(this.menu);
+
+    this.contentArea = document.createElement('article');
+    document.body.appendChild(this.contentArea);
 
     this.getZones();
 };

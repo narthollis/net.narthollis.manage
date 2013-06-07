@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>DNS Zone Management</title>
-        <link rel="stylesheet" type="text/css" href="/static/dns/css/dns.css" />
+{% extends "base.html" %}
 
-        <script type="text/javascript" src="/static/dns/js/inittasks.js"></script>
+{% block pagetitle %}DNS Zone Management{% endblock %}
+{% block javascript %}
+        <script type="text/javascript" src="/static/dns/js/lib/sprintf.js"></script>
+        <script type="text/javascript" src="/static/dns/js/lib/jsbn-combined.js"></script>
+        <script type="text/javascript" src="/static/dns/js/lib/ipv6.js"></script>
+        <script type="text/javascript" src="/static/dns/js/uuid.js"></script>
         <script type="text/javascript" src="/static/dns/js/inheritance.js"></script>
         <script type="text/javascript" src="/static/dns/js/XMLHttpRequest.js"></script>
+        <script type="text/javascript" src="/static/dns/js/form/input.js"></script>
+        <script type="text/javascript" src="/static/dns/js/form/select.js"></script>
         <script type="text/javascript" src="/static/dns/js/dns.js"></script>
         <script type="text/javascript" src="/static/dns/js/zone.js"></script>
         <script type="text/javascript" src="/static/dns/js/record.js"></script>
-    </head>
-    <body>
-    </body>
-    <script type="text/javascript">InitTasks.run();</script>
-</html>        
+{% endblock %}

@@ -1,31 +1,62 @@
-"use strict";
 
-//* package net.narthollis.elements.form
+//* package net.narthollis.elements.form.element
 
 if (typeof(net) == "undefined") var net = {};
 if (typeof(net.narthollis) == "undefined") net.narthollis = {};
 if (typeof(net.narthollis.elements) == "undefined") net.narthollis.elements = {};
 if (typeof(net.narthollis.elements.form) == "undefined") net.narthollis.elements.form = {};
 
+net.narthollis.elements.form.INPUT_ELEMENT_TYPES = [
+    'button',
+    'checkbox',
+    'color',
+    'date',
+    'datetime',
+    'datetime-local',
+    'email',
+    'file',
+    'hidden',
+    'image',
+    'month',
+    'number',
+    'password',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'text',
+    'time',
+    'url',
+    'week'
+];
+
 /**
- * @class net.narthollis.elements.form.TextInput
+ * @class net.narthollis.elements.form.Input
  * 
  * A Form Input Helper
  * 
- * This class helps construct, manage and validate <input> elements
+ * This class helps construct, manage and validate input elements
  * 
  * @param label Label for the input
  * @param name (OPTIONAL) The name attribute of the element DEFAULT=label_text
  * @param value (OPTIONAL) Tha initial value of the element DEFAULT=
  */
-net.narthollis.elements.form.TextInput = function(label, name, value, type) {
-    if(typeof(label) == "undefined") throw "Label Required";
+net.narthollis.elements.form.Input = function(label, name, value, type) {
+    if(typeof(label) == "undefined") label = '';
     if(typeof(type) == "undefined") type = "text";
     if(typeof(name) == "undefined") name = label.replace(/\W/, '_') + '_' + type;
     if(typeof(value) == "undefined") value = null;
 
-    this.__input = document.createElement('input');
-    this.__input.setAttribute('type', type);
+    this.type = type;
+
+    if (net.narthollis.elements.form.INPUT_ELEMENT_TYPES.indexOf(type) >= 0) {
+        this.__input = document.createElement('input');
+        this.__input.setAttribute('type', type);
+    } else {
+        this.__input = document.createElement(type);
+    }
     
     this.__input.setAttribute('id', 'nnei_' + net.narthollis.Uid() + name);
 
@@ -48,24 +79,28 @@ net.narthollis.elements.form.TextInput = function(label, name, value, type) {
     };
 };
 
-net.narthollis.elements.form.TextInput.prototype.setLabel = function(label) {
-    this.__label.innerHTML = label;
+net.narthollis.elements.form.Input.prototype.toString = function() {
+    return '[elements.form.Input("' + this.type + '", "' + this.__input.name + '", "' + this.__input.id + '")]';
+};
+
+net.narthollis.elements.form.Input.prototype.setLabel = function(value) {
+    this.__label.innerHTML = value;
 }
 
-net.narthollis.elements.form.TextInput.prototype.setName = function(label) {
-    this.__input.innerHTML = label;
+net.narthollis.elements.form.Input.prototype.setName = function(value) {
+    this.__input.setAttribute('name', value);
 }
 
-net.narthollis.elements.form.TextInput.prototype.setValue = function(value) {
+net.narthollis.elements.form.Input.prototype.setValue = function(value) {
     this.__input.setAttribute('value', value);
 }
 
 /**
- * @method net.narthollis.elements.form.TextInput.setHelpText
+ * @method net.narthollis.elements.form.Input.setHelpText
  * 
  * Sets the fields help text
  */
-net.narthollis.elements.form.TextInput.prototype.setHelpText = function(text) {
+net.narthollis.elements.form.Input.prototype.setHelpText = function(text) {
     if (typeof(this.__helpText) == 'undefined' || this.__helpText == null) {
         if (typeof(text) == 'undefined' || text == null) {
             this.__div.removeChild(this.__helpText);
@@ -80,50 +115,50 @@ net.narthollis.elements.form.TextInput.prototype.setHelpText = function(text) {
     this.__helpText.innerHTML = text;
 };
 
-net.narthollis.elements.form.TextInput.prototype.setValidator = function(value) {
+net.narthollis.elements.form.Input.prototype.setValidator = function(value) {
     if (typeof(value) != "function") throw "TypeError: Must Be a function" 
 
     this.__validator = value;
 };
 
-net.narthollis.elements.form.TextInput.prototype.getLabel = function() {
+net.narthollis.elements.form.Input.prototype.getLabel = function() {
     return this.__label.innerHTML;
 };
 
-net.narthollis.elements.form.TextInput.prototype.getName = function() {
+net.narthollis.elements.form.Input.prototype.getName = function() {
     return this.__input.getAttribute('name');
 };
 
-net.narthollis.elements.form.TextInput.prototype.getValue = function() {
+net.narthollis.elements.form.Input.prototype.getValue = function() {
     return this.__input.value;
 };
 
-net.narthollis.elements.form.TextInput.prototype.getElement = function() {
+net.narthollis.elements.form.Input.prototype.getElement = function() {
     return this.__div;
 };
 
-net.narthollis.elements.form.TextInput.prototype.getHelpText = function() {
+net.narthollis.elements.form.Input.prototype.getHelpText = function() {
     return this.__helpText.innerHTML;
 };
 
-net.narthollis.elements.form.TextInput.prototype.__defineSetter__("label", net.narthollis.elements.form.TextInput.prototype.setLabel);
-net.narthollis.elements.form.TextInput.prototype.__defineSetter__("name", net.narthollis.elements.form.TextInput.prototype.setName);
-net.narthollis.elements.form.TextInput.prototype.__defineSetter__("value", net.narthollis.elements.form.TextInput.prototype.setValue);
-net.narthollis.elements.form.TextInput.prototype.__defineSetter__("helptext", net.narthollis.elements.form.TextInput.prototype.setHelpText);
-net.narthollis.elements.form.TextInput.prototype.__defineSetter__("validator", net.narthollis.elements.form.TextInput.prototype.setValidator);
+net.narthollis.elements.form.Input.prototype.__defineSetter__("label", net.narthollis.elements.form.Input.prototype.setLabel);
+net.narthollis.elements.form.Input.prototype.__defineSetter__("name", net.narthollis.elements.form.Input.prototype.setName);
+net.narthollis.elements.form.Input.prototype.__defineSetter__("value", net.narthollis.elements.form.Input.prototype.setValue);
+net.narthollis.elements.form.Input.prototype.__defineSetter__("helptext", net.narthollis.elements.form.Input.prototype.setHelpText);
+net.narthollis.elements.form.Input.prototype.__defineSetter__("validator", net.narthollis.elements.form.Input.prototype.setValidator);
 
-net.narthollis.elements.form.TextInput.prototype.__defineGetter__("label", net.narthollis.elements.form.TextInput.prototype.getLabel);
-net.narthollis.elements.form.TextInput.prototype.__defineGetter__("name", net.narthollis.elements.form.TextInput.prototype.getName);
-net.narthollis.elements.form.TextInput.prototype.__defineGetter__("value", net.narthollis.elements.form.TextInput.prototype.getValue);
-net.narthollis.elements.form.TextInput.prototype.__defineGetter__("element", net.narthollis.elements.form.TextInput.prototype.getElement);
-net.narthollis.elements.form.TextInput.prototype.__defineGetter__("helptext", net.narthollis.elements.form.TextInput.prototype.getHelpText);
+net.narthollis.elements.form.Input.prototype.__defineGetter__("label", net.narthollis.elements.form.Input.prototype.getLabel);
+net.narthollis.elements.form.Input.prototype.__defineGetter__("name", net.narthollis.elements.form.Input.prototype.getName);
+net.narthollis.elements.form.Input.prototype.__defineGetter__("value", net.narthollis.elements.form.Input.prototype.getValue);
+net.narthollis.elements.form.Input.prototype.__defineGetter__("element", net.narthollis.elements.form.Input.prototype.getElement);
+net.narthollis.elements.form.Input.prototype.__defineGetter__("helptext", net.narthollis.elements.form.Input.prototype.getHelpText);
 
 /**
- * @method net.narthollis.elements.form.TextInput.validate
+ * @method net.narthollis.elements.form.Input.validate
  * 
  * @retuns boolean True if the input is ok, false otherwise
  */
-net.narthollis.elements.form.TextInput.prototype.validate = function() {
+net.narthollis.elements.form.Input.prototype.validate = function() {
     if (this.__validator === null) return true;
     var result = this.__validator(this.value);
     if (this.autoDisplayErrors) {
@@ -137,21 +172,21 @@ net.narthollis.elements.form.TextInput.prototype.validate = function() {
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.disable
+ * @method net.narthollis.elements.form.Input.disable
  * 
  * Disables the input
  */
-net.narthollis.elements.form.TextInput.prototype.disable = function() {
+net.narthollis.elements.form.Input.prototype.disable = function() {
     this.__input.disabled = true;
     this.__div.className = this.__div.className + ' disabled';
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.enable
+ * @method net.narthollis.elements.form.Input.enable
  * 
  * Enables the input
  */
-net.narthollis.elements.form.TextInput.prototype.enable = function() {
+net.narthollis.elements.form.Input.prototype.enable = function() {
     this.__input.disabled = false;
 
     var classes = this.__div.className.split(' ');
@@ -164,13 +199,13 @@ net.narthollis.elements.form.TextInput.prototype.enable = function() {
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.displayError
+ * @method net.narthollis.elements.form.Input.displayError
  * 
  * Displays an error message
  * 
  * @param errorMessage (OPTIONAL) the message to display
  */
-net.narthollis.elements.form.TextInput.prototype.displayError = function(message) {
+net.narthollis.elements.form.Input.prototype.displayError = function(message) {
     if(typeof(message) == "undefined") message = this.genericErrorMessage;
 
     this.__div.className = this.__div.className + ' error';
@@ -183,11 +218,11 @@ net.narthollis.elements.form.TextInput.prototype.displayError = function(message
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.clearError
+ * @method net.narthollis.elements.form.Input.clearError
  * 
  * Clears any error messages
  */
-net.narthollis.elements.form.TextInput.prototype.clearError = function() {
+net.narthollis.elements.form.Input.prototype.clearError = function() {
     if (this.error) {
         this.__div.removeChild(this.error);
         delete this.error;
@@ -203,11 +238,11 @@ net.narthollis.elements.form.TextInput.prototype.clearError = function() {
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.enable
+ * @method net.narthollis.elements.form.Input.enable
  * 
  * Enables the input
  */
-net.narthollis.elements.form.TextInput.prototype.enable = function() {
+net.narthollis.elements.form.Input.prototype.enable = function() {
     this.__input.disabled = false;
 
     var classes = this.__div.className.split(' ');
@@ -220,13 +255,13 @@ net.narthollis.elements.form.TextInput.prototype.enable = function() {
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.displayError
+ * @method net.narthollis.elements.form.Input.displayError
  * 
  * Displays an error message
  * 
  * @param errorMessage (OPTIONAL) the message to display
  */
-net.narthollis.elements.form.TextInput.prototype.displayError = function(message) {
+net.narthollis.elements.form.Input.prototype.displayError = function(message) {
     if(typeof(message) == "undefined") message = '';
 
     this.__div.className = this.__div.className + ' error';
@@ -237,11 +272,11 @@ net.narthollis.elements.form.TextInput.prototype.displayError = function(message
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.clearError
+ * @method net.narthollis.elements.form.Input.clearError
  * 
  * Clears any error messages
  */
-net.narthollis.elements.form.TextInput.prototype.clearError = function() {
+net.narthollis.elements.form.Input.prototype.clearError = function() {
     if(typeof(this.error) != 'undefined') {
         this.__div.removeChild(this.error);
 
@@ -258,13 +293,10 @@ net.narthollis.elements.form.TextInput.prototype.clearError = function() {
 };
 
 /**
- * @method net.narthollis.elements.form.TextInput.addEventListener
+ * @method net.narthollis.elements.form.Input.addEventListener
  * 
  * Wrapper for the input elements addEventListener
  */
-net.narthollis.elements.form.TextInput.prototype.addEventListener = function(type, func, bubble) {
+net.narthollis.elements.form.Input.prototype.addEventListener = function(type, func, bubble) {
     this.__input.addEventListener(type, func, bubble);
 };
-
-
-

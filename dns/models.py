@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+
+
 from django.db import models
 
 class Zone(models.Model):
@@ -71,7 +74,7 @@ class Record(models.Model):
 
     def __unicode__(self):
         if self.mx_priority != None:
-            return u'%s.%s IN %s %d %s' % (self.host, self.zone, self.type, self.mx_priority, self.data)
+            return '%s.%s IN %s %d %s' % (self.host, self.zone, self.type, self.mx_priority, self.data)
         else:
-            return u'%s.%s IN %s %s' % (self.host, self.zone, self.type, self.data)
+            return '%s.%s IN %s %s' % (self.host, self.zone, self.type, self.data)
 
