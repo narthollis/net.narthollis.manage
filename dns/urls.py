@@ -1,9 +1,9 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 import dns.views
 import dns.api
 
-api_patterns = patterns('',
+api_patterns = [
     url(
         r'^zone(/(?P<zone_id>[0-9]+)|/?)?$',
         dns.api.zone,
@@ -14,9 +14,9 @@ api_patterns = patterns('',
         dns.api.record,
         name='api_record'
     )
-)
+]
 
-dns_patterns = patterns('',
+dns_patterns = [
     url(
         r'^$',
         dns.views.index,
@@ -71,12 +71,12 @@ dns_patterns = patterns('',
         r'^api/',
         include(api_patterns, namespace="api", app_name="api"),
     )
-)
+]
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(
         r'',
         include(dns_patterns, namespace="dns", app_name='dns'),
     )
-)
+]

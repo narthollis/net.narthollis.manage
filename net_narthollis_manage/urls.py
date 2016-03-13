@@ -1,12 +1,16 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
+from django.views.decorators.csrf import csrf_exempt
+from graphene.contrib.django.views import GraphQLView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
+from net_narthollis_manage.schema import schema
+
 from net_narthollis_manage.views import ProfileUpdateView, IndexView
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
 
     url(r'^dns/', include('dns.urls')),
@@ -16,5 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^graphql', csrf_exempt(GraphQLView.as_view(schema=schema))),
+    url(r'^graphiql', include('django_graphiql.urls')),
 
-)
+]

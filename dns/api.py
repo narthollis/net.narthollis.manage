@@ -38,7 +38,7 @@ class APIView(View):
                     'status': 403,
                     'message': str(e) if str(e) else 'Permission Denied'
                 })
-                return django.http.
+                return django.http.HttpResponse(body)
 
         # take name and docstring from class
         update_wrapper(view, cls, updated=())
